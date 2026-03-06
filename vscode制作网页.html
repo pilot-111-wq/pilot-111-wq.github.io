@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雅思口语题库整理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .nav button {
+            background: none;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        
+        .nav button.active {
+            background-color: #4a6fa5;
+            color: white;
+        }
+        
+        .section {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        h2 {
+            color: #4a6fa5;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .topic-list {
+            margin-bottom: 30px;
+        }
+        
+        .topic {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .topic:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .topic h3 {
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .topic-content {
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+        
+        .topic-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #4a6fa5;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3a5a85;
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .add-topic {
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            resize: vertical;
+        }
+        
+        textarea {
+            min-height: 100px;
+        }
+        
+        .edit-form {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.success {
+            background-color: #28a745;
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background-color: #dc3545;
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .nav button {
+                padding: 10px 15px;
+                font-size: 16px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>雅思口语题库整理</h1>
+        <p>轻松管理和编辑您的雅思口语备考资料</p>
+    </header>
+    
+    <div class="container">
+        <div class="nav">
+            <button class="active" data-section="part1">Part 1</button>
+            <button data-section="part2-3">Part 2 & Part 3</button>
+        </div>
+        
+        <!-- Part 1 部分 -->
+        <div class="section active" id="part1">
+            <h2>Part 1 话题</h2>
+            
+            <div class="add-topic">
+                <h3>添加新话题</h3>
+                <div class="form-group">
+                    <label for="part1-topic-title">话题名称</label>
+                    <input type="text" id="part1-topic-title" placeholder="例如：Hometown">
+                </div>
+                <div class="form-group">
+                    <label for="part1-topic-content">问题</label>
+                    <textarea id="part1-topic-content" placeholder="请输入相关问题，每个问题占一行"></textarea>
+                </div>
+                <button class="btn btn-primary" id="add-part1-topic">添加话题</button>
+            </div>
+            
+            <div class="topic-list" id="part1-topics"></div>
+        </div>
+        
+        <!-- Part 2 & 3 部分 -->
+        <div class="section" id="part2-3">
+            <h2>Part 2 & Part 3 话题</h2>
+            
+            <div class="add-topic">
+                <h3>添加新话题</h3>
+                <div class="form-group">
+                    <label for="part2-topic-title">话题名称</label>
+                    <input type="text" id="part2-topic-title" placeholder="例如：Describe a person you admire">
+                </div>
+                <div class="form-group">
+                    <label for="part2-topic-content">Part 2 问题</label>
+                    <textarea id="part2-topic-content" placeholder="请输入Part 2的问题描述"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="part3-topic-content">Part 3 问题</label>
+                    <textarea id="part3-topic-content" placeholder="请输入Part 3的相关问题，每个问题占一行"></textarea>
+                </div>
+                <button class="btn btn-primary" id="add-part2-topic">添加话题</button>
+            </div>
+            
+            <div class="topic-list" id="part2-topics"></div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // 本地存储键名
+        const STORAGE_KEYS = {
+            PART1: 'ielts_part1_topics',
+            PART2: 'ielts_part2_topics'
+        };
+        
+        // 初始化数据
+        function initData() {
+            // 检查本地存储是否有数据，没有则初始化
+            if (!localStorage.getItem(STORAGE_KEYS.PART1)) {
+                localStorage.setItem(STORAGE_KEYS.PART1, JSON.stringify([]));
+            }
+            if (!localStorage.getItem(STORAGE_KEYS.PART2)) {
+                localStorage.setItem(STORAGE_KEYS.PART2, JSON.stringify([]));
+            }
+        }
+        
+        // 获取数据
+        function getData(key) {
+            return JSON.parse(localStorage.getItem(key) || '[]');
+        }
+        
+        // 保存数据
+        function saveData(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+        
+        // 显示通知
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            
+            setTimeout(() => {
+                notification.className = 'notification';
+            }, 3000);
+        }
+        
+        // 渲染Part 1话题
+        function renderPart1Topics() {
+            const topics = getData(STORAGE_KEYS.PART1);
+            const container = document.getElementById('part1-topics');
+            
+            container.innerHTML = '';
+            
+            if (topics.length === 0) {
+                container.innerHTML = '<p>暂无话题，请添加新话题</p>';
+                return;
+            }
+            
+            topics.forEach((topic, index) => {
+                const topicElement = document.createElement('div');
+                topicElement.className = 'topic';
+                topicElement.innerHTML = `
+                    <h3>
+                        ${topic.title}
+                        <div>
+                            <button class="btn btn-secondary edit-btn" data-index="${index}">编辑</button>
+                            <button class="btn btn-danger delete-btn" data-index="${index}">删除</button>
+                        </div>
+                    </h3>
+                    <div class="topic-content">${topic.content}</div>
+                    <div class="edit-form" style="display: none;">
+                        <div class="form-group">
+                            <label>话题名称</label>
+                            <input type="text" class="edit-title" value="${topic.title}">
+                        </div>
+                        <div class="form-group">
+                            <label>问题</label>
+                            <textarea class="edit-content">${topic.content}</textarea>
+                        </div>
+                        <div class="topic-actions">
+                            <button class="btn btn-primary save-btn" data-index="${index}">保存</button>
+                            <button class="btn btn-secondary cancel-btn">取消</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(topicElement);
+            });
+            
+            // 绑定事件
+            bindPart1Events();
+        }
+        
+        // 绑定Part 1事件
+        function bindPart1Events() {
+            // 编辑按钮
+            document.querySelectorAll('#part1-topics .edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const topicElement = this.closest('.topic');
+                    const editForm = topicElement.querySelector('.edit-form');
+                    editForm.style.display = 'block';
+                });
+            });
+            
+            // 取消按钮
+            document.querySelectorAll('#part1-topics .cancel-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const editForm = this.closest('.edit-form');
+                    editForm.style.display = 'none';
+                });
+            });
+            
+            // 保存按钮
+            document.querySelectorAll('#part1-topics .save-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const topicElement = this.closest('.topic');
+                    const editTitle = topicElement.querySelector('.edit-title').value;
+                    const editContent = topicElement.querySelector('.edit-content').value;
+                    
+                    if (!editTitle.trim()) {
+                        showNotification('话题名称不能为空', 'error');
+                        return;
+                    }
+                    
+                    const topics = getData(STORAGE_KEYS.PART1);
+                    topics[index] = { title: editTitle, content: editContent };
+                    saveData(STORAGE_KEYS.PART1, topics);
+                    
+                    renderPart1Topics();
+                    showNotification('保存成功');
+                });
+            });
+            
+            // 删除按钮
+            document.querySelectorAll('#part1-topics .delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (confirm('确定要删除这个话题吗？')) {
+                        const index = this.getAttribute('data-index');
+                        const topics = getData(STORAGE_KEYS.PART1);
+                        topics.splice(index, 1);
+                        saveData(STORAGE_KEYS.PART1, topics);
+                        
+                        renderPart1Topics();
+                        showNotification('删除成功');
+                    }
+                });
+            });
+        }
+        
+        // 渲染Part 2 & 3话题
+        function renderPart2Topics() {
+            const topics = getData(STORAGE_KEYS.PART2);
+            const container = document.getElementById('part2-topics');
+            
+            container.innerHTML = '';
+            
+            if (topics.length === 0) {
+                container.innerHTML = '<p>暂无话题，请添加新话题</p>';
+                return;
+            }
+            
+            topics.forEach((topic, index) => {
+                const topicElement = document.createElement('div');
+                topicElement.className = 'topic';
+                topicElement.innerHTML = `
+                    <h3>
+                        ${topic.title}
+                        <div>
+                            <button class="btn btn-secondary edit-btn" data-index="${index}">编辑</button>
+                            <button class="btn btn-danger delete-btn" data-index="${index}">删除</button>
+                        </div>
+                    </h3>
+                    <div class="form-group">
+                        <label>Part 2 问题</label>
+                        <div class="topic-content">${topic.part2Content}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Part 3 问题</label>
+                        <div class="topic-content">${topic.part3Content}</div>
+                    </div>
+                    <div class="edit-form" style="display: none;">
+                        <div class="form-group">
+                            <label>话题名称</label>
+                            <input type="text" class="edit-title" value="${topic.title}">
+                        </div>
+                        <div class="form-group">
+                            <label>Part 2 问题</label>
+                            <textarea class="edit-part2-content">${topic.part2Content}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Part 3 问题</label>
+                            <textarea class="edit-part3-content">${topic.part3Content}</textarea>
+                        </div>
+                        <div class="topic-actions">
+                            <button class="btn btn-primary save-btn" data-index="${index}">保存</button>
+                            <button class="btn btn-secondary cancel-btn">取消</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(topicElement);
+            });
+            
+            // 绑定事件
+            bindPart2Events();
+        }
+        
+        // 绑定Part 2事件
+        function bindPart2Events() {
+            // 编辑按钮
+            document.querySelectorAll('#part2-topics .edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const topicElement = this.closest('.topic');
+                    const editForm = topicElement.querySelector('.edit-form');
+                    editForm.style.display = 'block';
+                });
+            });
+            
+            // 取消按钮
+            document.querySelectorAll('#part2-topics .cancel-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const editForm = this.closest('.edit-form');
+                    editForm.style.display = 'none';
+                });
+            });
+            
+            // 保存按钮
+            document.querySelectorAll('#part2-topics .save-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const topicElement = this.closest('.topic');
+                    const editTitle = topicElement.querySelector('.edit-title').value;
+                    const editPart2Content = topicElement.querySelector('.edit-part2-content').value;
+                    const editPart3Content = topicElement.querySelector('.edit-part3-content').value;
+                    
+                    if (!editTitle.trim()) {
+                        showNotification('话题名称不能为空', 'error');
+                        return;
+                    }
+                    
+                    const topics = getData(STORAGE_KEYS.PART2);
+                    topics[index] = { 
+                        title: editTitle, 
+                        part2Content: editPart2Content,
+                        part3Content: editPart3Content
+                    };
+                    saveData(STORAGE_KEYS.PART2, topics);
+                    
+                    renderPart2Topics();
+                    showNotification('保存成功');
+                });
+            });
+            
+            // 删除按钮
+            document.querySelectorAll('#part2-topics .delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (confirm('确定要删除这个话题吗？')) {
+                        const index = this.getAttribute('data-index');
+                        const topics = getData(STORAGE_KEYS.PART2);
+                        topics.splice(index, 1);
+                        saveData(STORAGE_KEYS.PART2, topics);
+                        
+                        renderPart2Topics();
+                        showNotification('删除成功');
+                    }
+                });
+            });
+        }
+        
+        // 初始化导航
+        function initNavigation() {
+            const navButtons = document.querySelectorAll('.nav button');
+            const sections = document.querySelectorAll('.section');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetSection = this.getAttribute('data-section');
+                    
+                    // 更新导航按钮状态
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 更新显示的部分
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === targetSection) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+        
+        // 初始化添加话题功能
+        function initAddTopic() {
+            // Part 1 添加话题
+            document.getElementById('add-part1-topic').addEventListener('click', function() {
+                const title = document.getElementById('part1-topic-title').value;
+                const content = document.getElementById('part1-topic-content').value;
+                
+                if (!title.trim()) {
+                    showNotification('话题名称不能为空', 'error');
+                    return;
+                }
+                
+                const topics = getData(STORAGE_KEYS.PART1);
+                topics.push({ title, content });
+                saveData(STORAGE_KEYS.PART1, topics);
+                
+                // 清空表单
+                document.getElementById('part1-topic-title').value = '';
+                document.getElementById('part1-topic-content').value = '';
+                
+                renderPart1Topics();
+                showNotification('添加成功');
+            });
+            
+            // Part 2 添加话题
+            document.getElementById('add-part2-topic').addEventListener('click', function() {
+                const title = document.getElementById('part2-topic-title').value;
+                const part2Content = document.getElementById('part2-topic-content').value;
+                const part3Content = document.getElementById('part3-topic-content').value;
+                
+                if (!title.trim()) {
+                    showNotification('话题名称不能为空', 'error');
+                    return;
+                }
+                
+                const topics = getData(STORAGE_KEYS.PART2);
+                topics.push({ title, part2Content, part3Content });
+                saveData(STORAGE_KEYS.PART2, topics);
+                
+                // 清空表单
+                document.getElementById('part2-topic-title').value = '';
+                document.getElementById('part2-topic-content').value = '';
+                document.getElementById('part3-topic-content').value = '';
+                
+                renderPart2Topics();
+                showNotification('添加成功');
+            });
+        }
+        
+        // 初始化应用
+        function initApp() {
+            initData();
+            initNavigation();
+            initAddTopic();
+            renderPart1Topics();
+            renderPart2Topics();
+        }
+        
+        // 启动应用
+        initApp();
+    </script>
+</body>
+</html>
